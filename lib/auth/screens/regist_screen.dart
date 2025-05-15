@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness_tracker/auth/screens/login_screen.dart';
 import 'package:fitness_tracker/auth/widgets/custom_text_field.dart';
 import 'package:fitness_tracker/generated/l10n.dart';
+import 'package:fitness_tracker/screens/navigation_screen.dart';
 import 'package:flutter/material.dart';
 import '../../models/user_model.dart';
 
@@ -43,11 +44,11 @@ class _RegistScreenState extends State<RegistScreen> {
         uid: uid,
         name: nameController.text.trim(),
         email: emailController.text.trim(),
-        gender: genderController.text.trim(),
-        dob: dobController.text.trim(),
-        height: int.tryParse(heightController.text.trim()) ?? 0,
-        weight: int.tryParse(weightController.text.trim()) ?? 0,
-        activityLevel: activityLevelController.text.trim(),
+        // gender: genderController.text.trim(),
+        // dob: dobController.text.trim(),
+        // height: int.tryParse(heightController.text.trim()) ?? 0,
+        // weight: int.tryParse(weightController.text.trim()) ?? 0,
+        // activityLevel: activityLevelController.text.trim(),
       );
 
       // Save user to Firestore
@@ -59,6 +60,11 @@ class _RegistScreenState extends State<RegistScreen> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('✅ Registration successful')));
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => NavigationScreen(userModel: userModel),
+        ),
+      );
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(
         context,
